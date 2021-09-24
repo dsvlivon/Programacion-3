@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Login </title>
+	</head>
+	<body>
+		
+		<form action="login.php" method="post"> <!--para pasarlo por post se necesita si o si un formulario html-->
+			Nombre:<input type="text" name="nombre" />
+			<br/><br/>
+            Mail:<input type="text" name="mail" />
+			<br/><br/>
+			Clave:<input type="text" name="clave" />
+			<br/><br/><br/>
+			<input type="submit" value="INICIAR SESION" />
+		</form>
+
+		<form action="listado.php" method="get">
+			<input type="submit" value="CARGAR LISTA"/>
+		</form>
+
+		<!-- TIRABA Q FALTAN DATOS XQ NO ESTAN LOS 
+			input type="text" name="nombre" "mail" y "clave" en realidad aca. es otro form.
+			NO seas gil!
+		<form action="destino.php" method="post">
+			<input type="submit" value="CREAR USUARIO"/>
+		</form>
+		-->
+	</body>
+</html>
