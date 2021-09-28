@@ -26,7 +26,6 @@ class Archivo{
         }
     }    
     static function GuardarCSV($archivo, $line){
-        $ret;
         $p = fopen($archivo,"a+");
         if($p){
             $ret = fwrite($p,$line);

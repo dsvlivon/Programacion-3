@@ -15,13 +15,14 @@
         #region Propias
         public function __construct(){}
 
-        function Setter($nombre, $apellido, $fechaRegistro, $clave, $mail, $localidad){
+        function Setter($id, $nombre, $apellido, $fechaRegistro, $clave, $mail, $localidad){
             if($nombre != NULL) { $this->nombre = $nombre; }
             if($apellido != NULL) { $this->apellido = $apellido; }
             if($fechaRegistro != NULL) { $this->fechaRegistro = $fechaRegistro; }
             if($clave != NULL) { $this->clave = $clave; }
             if($mail != NULL) { $this->mail = $mail; }
             if($localidad != NULL) { $this->localidad = $localidad; }
+            if($id != NULL) { $this->id = $id; }
         }
 
         function Mostrar(){
@@ -82,7 +83,7 @@
         }
 
         public static function LoginUsuario($lista, $u){
-            $status;
+            
             $flag = FALSE;
             // var_dump($u->_mail);
             foreach ($lista as $obj) {
@@ -105,14 +106,30 @@
             return $flag;
         }
 
-        
+        public static function cambiarClave($mail, $claveVieja, $claveNueva){
+            $lista = array();
+            $lista = Usuario::SelectAll("usuarios");
+            //$date = new datetime("now");
+
+            foreach ($lista as $u) {
+                if (strcmp($u->mail, $mail) == 0 && strcmp($u->clave, $claveVieja) == 0) {
+                    $u->clave = $claveNueva;
+                    $msg = "Se cambio la clave de ".$u->nombre."</br>";
+                    $u->Update();
+                    break;
+                } else {
+                    $msg = "No se pudo hacer el cambio!";
+                }
+            }
+            echo $msg;
+        }
         #endregion
         
         #region archivos 
         //nombre, apellido, clave, mail, localidad)+fecha
         function SaveCSV($archivo){
             $line = $this->nombre.",".$this->clave.",".$this->mail.",".$this->fechaRegistro."\n";
-            if(!Archivo::GuardarCSV2($archivo, $line)){
+            if(!Archivo::GuardarCSV($archivo, $line)){
                 echo "Fallo";   
             } else { 
                 echo "Exito";
@@ -171,7 +188,7 @@
         }
 
         public function Insert() {
-            $query = "INSERT into usuarios (nombre,apellido,clave, mail,fechaRegistro,localidad)
+            $query = "INSERT into usuarios (nombre, apellido, clave,mail, fechaRegistro, localidad)
             values(:nombre,:apellido,:clave,:mail,:fechaRegistro,:localidad)";
 
             $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
@@ -181,7 +198,7 @@
             $consulta->bindValue(':apellido',$this->apellido, PDO::PARAM_STR);
             $consulta->bindValue(':clave',$this->clave, PDO::PARAM_STR);
             $consulta->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-            $consulta->bindValue(':fechaRegistro', $this->fecha, PDO::PARAM_STR);
+            $consulta->bindValue(':fechaRegistro', $this->fechaRegistro, PDO::PARAM_STR);
             $consulta->bindValue(':localidad', $this->localidad, PDO::PARAM_STR);
             
             $consulta->execute();		
@@ -189,18 +206,21 @@
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
         }
         public function Delete() {
+            $query = "DELETE FROM usuarios WHERE id=:id";
             $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM usuarios 				
-            WHERE id=:id");	
+            $consulta =$objetoAccesoDato->RetornarConsulta($query);	
             $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);		
             $consulta->execute();
             return $consulta->rowCount();
         }
         public function Update() {
+            $query = "UPDATE usuarios SET 
+            nombre=:nombre, apellido=:apellido, clave=:clave, mail=:mail, fechaRegistro=:fechaRegistro, localidad=:localidad
+            WHERE id=:id";
+            
             $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("UPDATE usuarios 
-            SET nombre=:nombre, apellido=:apellido, clave=:clave, mail=:mail, fechaRegistro=:fechaRegistro, localidad=:localidad
-            WHERE id=:id");
+            $consulta =$objetoAccesoDato->RetornarConsulta($query);
+            
             $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);
             $consulta->bindValue(':apellido',$this->apellido, PDO::PARAM_STR);
             $consulta->bindValue(':nombre',$this->nombre, PDO::PARAM_STR);

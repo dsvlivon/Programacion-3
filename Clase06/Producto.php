@@ -2,21 +2,26 @@
     require_once "Archivo.php";
     
     class Producto{
-        public $nombre;
+        public $id;
         public $codigo;
+        public $nombre;
         public $tipo;
         public $stock;
         public $precio;
-        
-        public $id;
-        
-        //código de barra (6 sifras ),nombre ,tipo, stock, precio
-        function __construct($nombre, $codigo, $tipo, $stock, $precio){
-            if($nombre != NULL) { $this->nombre = $nombre; }
+        public $fechaDeCreacion;
+        public $ultimaModificacion;
+
+        function __construct(){}
+
+        function Setter($id, $nombre, $codigo, $tipo, $stock, $precio, $fechaDeCreacion, $ultimaModificacion) {
+            if($id != NULL) { $this->id = $id; }
             if($codigo != NULL) { $this->codigo = $codigo;}
+            if($nombre != NULL) { $this->nombre = $nombre; }
             if($tipo != NULL) { $this->tipo = $tipo; }
             if($stock != NULL) { $this->stock = $stock; }
             if($precio != NULL) { $this->precio = $precio; }
+            if($fechaDeCreacion != NULL) { $this->fechaDeCreacion = $fechaDeCreacion; }
+            if($ultimaModificacion != NULL) { $this->ultimaModificacion = $ultimaModificacion; }
         }
 
         // function getId() { return $this->id; }
@@ -29,6 +34,8 @@
             echo "tipo: ".$this->tipo."</br>";
             echo "stock: ".$this->stock."</br>";
             echo "precio: ".$this->precio."</br>";
+            echo "Fecha Creacion: ".$this->fechaDeCreacion."</br>";
+            echo "Ultima Modificacion: ".$this->ultimaModificacion."</br>";
             echo "-----------------------</br>";
         }
 
@@ -56,34 +63,64 @@
             return FALSE;
         }
 
-        public static function validarStock($lista, $x, $archivo){
-            $stat = FALSE;       
-
-            foreach ($lista as $obj) {
-                if($x->Equals($obj)) {
-                    $prev = $obj->stock;
-                    $obj->stock += $x->stock;
-                    $msg = "Producto Existente!"."</br>"."Stock anterior: ".$prev."</br>"."Nuevo Stock: ".$obj->stock;
-                    $stat = FALSE;
-                    break;
-                } else {
-                    $msg = "Producto Inexistente!"."</br>"."Se ingresa nuevo producto!";
-                    $stat = TRUE;
+        public static function validarStock($lista, $p, $archivo){
+            $status = FALSE;       
+            if($lista != NULL && $p != NULL){
+                foreach ($lista as $obj) {
+                    if($p->Equals($obj)) {
+                        $prev = $obj->stock;
+                        $obj->stock += $p->stock;
+                        $obj->ultimaModificacion = $p->ultimaModificacion;
+                        
+                        $msg = "Producto Existente!"."</br>"."Stock anterior: ".$prev."</br>"."Nuevo Stock: ".$obj->stock;
+                        echo "ACTUALIZANDO: </br>";
+                        // var_dump($obj);
+                        $obj->Update();
+                        $status = FALSE;
+                        break;
+                    } else {
+                        $msg = "Producto Inexistente!"."</br>"."Se ingresa nuevo producto!";
+                        $status = TRUE;
+                        $p->fechaDeCreacion = $p->ultimaModificacion;   
+                    }
                 }
-            }
-            echo $msg;
-            if($stat) {
-                array_push($lista, $x);
-                $x->SaveJson($archivo);
+                echo $msg;
+                if($status) {
+                    array_push($lista, $p);
+                    $p->SaveJson($archivo);
+                    $p->Insert();
+                }
             }
         }
 
+        public function Modificar(){
+            $lista = array();
+            $lista = Producto::SelectAll("productos");
+            
+            if($lista != NULL){
+                foreach ($lista as $p) {
+                    //if($this->Equals($p)) {
+                    if($this->codigo == $p->codigo) {
+                        $this->stock += $p->stock;
+                        $this->id = $p->id;
+                        $this->fechaDeCreacion = $p->fechaDeCreacion;
+                        $msg = "Actualizado";
+                        $this->Update();
+                        break;
+                    } else {
+                        $msg = "No se puedo hacer!";
+                    }
+                }
+                return $msg;
+            }
+        } 
         
         #region archivos 
-        //__construct($nombre, $codigo, $tipo, $stock, $precio) +id
+        // $nombre, $codigo, $tipo, $stock, $precio, $fechaDeCreacion, $ultimaModificacion + $id
+        //CSV////////////////////////////////////////////
         function SaveCSV($archivo){
             $line = $this->id.",".$this->nombre.",".$this->codigo.",".$this->tipo.",".$this->stock.",".$this->precio."\n";
-            if(!Archivo::GuardarCSV2($archivo, $line)){
+            if(!Archivo::GuardarCSV($archivo, $line)){
                 echo "Fallo";   
             } else { 
                 echo "Exito";
@@ -114,14 +151,14 @@
             }
             return $auxLista;
         }
-
+        //JSON////////////////////////////////////////////
         function SaveJson($archivo){
             $line = json_encode($this);//json_encode no funciona c attr privados
             if(!Archivo::GuardarJSON($archivo, $line)){
-                echo "Fallo!";   
+                echo "[JSON -Fail-]";   
             } else { 
-                echo "Exito: ";
-                echo $line;
+                echo "[JSON OK]";
+                //echo $line;
             }
         }
         static function ReadJson($archivo){
@@ -138,6 +175,74 @@
                 }
             }
             return $lista;
+        }
+        //SQL////////////////////////////////////////////
+        public function Insert() {
+            $query = "INSERT into productos (nombre, codigo, tipo, stock, precio, fechaDeCreacion, ultimaModificacion)
+            values(:nombre,:codigo,:tipo,:stock,:precio,:fechaDeCreacion,:ultimaModificacion)";
+
+            $objetoAccesoDato = Archivo::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta($query);
+
+            $consulta->bindValue(':nombre',$this->nombre, PDO::PARAM_STR);
+            $consulta->bindValue(':codigo',$this->codigo, PDO::PARAM_STR);
+            $consulta->bindValue(':tipo',$this->tipo, PDO::PARAM_STR);
+            $consulta->bindValue(':stock', $this->stock, PDO::PARAM_STR);
+            $consulta->bindValue(':precio', $this->precio, PDO::PARAM_STR);
+            $consulta->bindValue(':fechaDeCreacion', $this->fechaDeCreacion, PDO::PARAM_STR);
+            $consulta->bindValue(':ultimaModificacion', $this->ultimaModificacion, PDO::PARAM_STR);
+            
+            $consulta->execute();		
+            echo "INSERT COMPLETE!</br>";
+            return $objetoAccesoDato->RetornarUltimoIdInsertado();
+        }
+        public function Delete() {
+            $query = "DELETE FROM productos WHERE id=:id";
+
+            $objetoAccesoDato = Archivo::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta($query);	
+
+            $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);		
+            $consulta->execute();
+            
+            echo "DELETE COMPLETE!";
+            return $consulta->rowCount();
+        }
+        public function Update() {
+            $query = "UPDATE productos SET 
+            codigo=:codigo, nombre=:nombre, tipo=:tipo, stock=:stock, precio=:precio, ultimaModificacion=:ultimaModificacion 
+            WHERE id=:id";
+            
+            $objetoAccesoDato = Archivo::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta($query);
+            
+            $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);//es necesario pasar como parar el key
+            $consulta->bindValue(':nombre',$this->nombre, PDO::PARAM_STR);
+            $consulta->bindValue(':codigo',$this->codigo, PDO::PARAM_INT);
+            $consulta->bindValue(':tipo',$this->tipo, PDO::PARAM_STR);
+            $consulta->bindValue(':stock', $this->stock, PDO::PARAM_STR);
+            $consulta->bindValue(':precio', $this->precio, PDO::PARAM_STR);//no es float!!
+            // $consulta->bindValue(':fechaDeCreacion', $this->fechaDeCreacion, PDO::PARAM_STR);
+            $consulta->bindValue(':ultimaModificacion', $this->ultimaModificacion, PDO::PARAM_STR);
+            
+            $consulta->execute();
+            echo "UPDATE COMPLETE!</br>";
+            return $this;
+        }
+        static function SelectAll($archivo) {   
+            $lista = array();
+            $query = "SELECT* FROM ".$archivo;
+            
+            if($archivo != NULL) {
+                $objetoAccesoDato = Archivo::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta($query);
+                $consulta->execute();			
+            
+                $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Producto");
+                //var_dump($lista);
+            
+                return $lista;
+            }
         }
         #endregion
     }

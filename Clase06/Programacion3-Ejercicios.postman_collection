@@ -1,0 +1,918 @@
+{
+	"info": {
+		"_postman_id": "a5750f2e-3ad9-4513-9edb-1ddd6feabc57",
+		"name": "Programacion3-Ejercicios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clase04",
+			"item": [
+				{
+					"name": "localhost",
+					"item": [
+						{
+							"name": "e22_localhost login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "mail",
+											"value": "daniel@utn.com",
+											"type": "text"
+										},
+										{
+											"key": "nombre",
+											"value": "Daniel",
+											"type": "text"
+										},
+										{
+											"key": "clave",
+											"value": "0000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/Clase04/Ejercicio22.php",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio22.php"
+									],
+									"query": [
+										{
+											"key": "archivo",
+											"value": "usuarios.csv",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e23_localhost Registro json",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "mail",
+											"value": "jondoe@utn.com",
+											"type": "text"
+										},
+										{
+											"key": "nombre",
+											"value": "JonDoe",
+											"type": "text"
+										},
+										{
+											"key": "clave",
+											"value": "0000",
+											"type": "text"
+										},
+										{
+											"key": "foto",
+											"type": "file",
+											"src": "/C:/xampp/htdocs/Clase04/profile.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/Clase04/Ejercicio23.php",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio23.php"
+									],
+									"query": [
+										{
+											"key": "archivo",
+											"value": "usuarios.csv",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e24_localhost listado",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nombre",
+											"value": "daniel",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "clave",
+											"value": "1234",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "mail",
+											"value": "daniel@utn",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/Clase04/Ejercicio24.php?archivo=usuarios.json",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio24.php"
+									],
+									"query": [
+										{
+											"key": "archivo",
+											"value": "usuarios.json"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e25_localhost alta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo",
+											"value": "1227",
+											"type": "text"
+										},
+										{
+											"key": "nombre",
+											"value": "Seeger 1.1/2",
+											"type": "text"
+										},
+										{
+											"key": "tipo",
+											"value": "Buloneria",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "600",
+											"type": "text"
+										},
+										{
+											"key": "precio",
+											"value": "6,00",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/Clase04/Ejercicio25.php",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio25.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e26_localhost venta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo",
+											"value": "77900362",
+											"type": "text"
+										},
+										{
+											"key": "cantidad",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "106",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/slim-php-heroku/app/Clase04/Ejercicio26/RealizarVenta.php",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"slim-php-heroku",
+										"app",
+										"Clase04",
+										"Ejercicio26",
+										"RealizarVenta.php"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "heroku",
+					"item": [
+						{
+							"name": "e23_heroku save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "foto",
+											"type": "file",
+											"src": "/C:/xampp/htdocs/slim-php-heroku/app/Clase04/Ejercicio23/pic.jpg"
+										},
+										{
+											"key": "nombre",
+											"value": "coco",
+											"type": "text"
+										},
+										{
+											"key": "mail",
+											"value": "coco@utn",
+											"type": "text"
+										},
+										{
+											"key": "clave",
+											"value": "1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://vizgarradaniel.herokuapp.com/Clase04/Ejercicio23/registro.php",
+									"protocol": "http",
+									"host": [
+										"vizgarradaniel",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio23",
+										"registro.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e24_heroku listado",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nombre",
+											"value": "daniel",
+											"type": "text"
+										},
+										{
+											"key": "clave",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "mail",
+											"value": "daniel@utn",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://vizgarradaniel.herokuapp.com/Clase04/Ejercicio24/listado.php?listado=usuarios.json",
+									"protocol": "https",
+									"host": [
+										"vizgarradaniel",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"Clase04",
+										"Ejercicio24",
+										"listado.php"
+									],
+									"query": [
+										{
+											"key": "listado",
+											"value": "usuarios.json"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e25_heroku alta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo",
+											"value": "1210",
+											"type": "text"
+										},
+										{
+											"key": "nombre",
+											"value": "camarita",
+											"type": "text"
+										},
+										{
+											"key": "mail",
+											"value": "coco@utn",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "tipo",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "precio",
+											"value": "1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https:///vizgarradaniel.herokuapp.com/Clase04/Ejercicio25/altaProducto.php",
+									"protocol": "https",
+									"path": [
+										"vizgarradaniel.herokuapp.com",
+										"Clase04",
+										"Ejercicio25",
+										"altaProducto.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "e26_heroku venta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo",
+											"value": "1210",
+											"type": "text"
+										},
+										{
+											"key": "nombre",
+											"value": "camarita",
+											"type": "text"
+										},
+										{
+											"key": "mail",
+											"value": "coco@utn",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "codigo",
+											"value": "77900362",
+											"type": "text"
+										},
+										{
+											"key": "cantidad",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "106",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https:///vizgarradaniel.herokuapp.com/Clase04/Ejercicio26/RealizaVenta.php",
+									"protocol": "https",
+									"path": [
+										"vizgarradaniel.herokuapp.com",
+										"Clase04",
+										"Ejercicio26",
+										"RealizaVenta.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Clase06",
+			"item": [
+				{
+					"name": "index-e27_registro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "apellido",
+									"value": "doe",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "jane",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "jane@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "localidad",
+									"value": "Carapachai",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "200",
+									"type": "text"
+								},
+								{
+									"key": "claveNueva",
+									"value": "12345",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=registro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "registro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e28_listado",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "daniel",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "clave",
+									"value": "1234",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mail",
+									"value": "daniel@utn",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=listado&archivo=usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "listado"
+								},
+								{
+									"key": "archivo",
+									"value": "usuarios"
+								},
+								{
+									"key": "archivo",
+									"value": "productos",
+									"disabled": true
+								},
+								{
+									"key": "archivo",
+									"value": "ventas",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e29_login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "jon",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "apellido",
+									"value": "doe",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mail",
+									"value": "jon@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "localidad",
+									"value": "Carapachai",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "login"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e30_alta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "124913",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "Skip",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "Polvo",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "32",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "82.9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "alta"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e31_venta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "124913",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idUsuario",
+									"value": "116",
+									"type": "text"
+								},
+								{
+									"key": "idProducto",
+									"value": "1017",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=venta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "venta"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e32_modificarusuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "apellido",
+									"value": "jon",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "doe",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mail",
+									"value": "jon@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "localidad",
+									"value": "Carapachai",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "claveVieja",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "claveNueva",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=modificacionUsuario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "modificacionUsuario"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-e33_modificarProducto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "apellido",
+									"value": "Bart",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "Simpson",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mail",
+									"value": "jon@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "localidad",
+									"value": "Springfield",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "claveVieja",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "claveNueva",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/slim-php-heroku/app/Clase05/Ejercicio27/altaProducto.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"slim-php-heroku",
+								"app",
+								"Clase05",
+								"Ejercicio27",
+								"altaProducto.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
