@@ -24,9 +24,9 @@
             if($ultimaModificacion != NULL) { $this->ultimaModificacion = $ultimaModificacion; }
         }
 
+        #region Propias
         // function getId() { return $this->id; }
         // function SetId($value) { $this->id = $value; }
-
         function Mostrar(){
             echo "Id: ".$this->id."</br>";
             echo "Nombre: ".$this->nombre."</br>";
@@ -114,7 +114,49 @@
                 return $msg;
             }
         } 
-        
+        #endregion
+
+        #region Filtros
+        public static function Filtro_B($orden) { //echo "llego Filtro_Ordenar";
+            $lista = array();
+            $query = "SELECT * FROM `productos` ORDER BY `nombre`";
+            if($orden == "ascendente"){ //echo "as ok";
+                $query = $query." ASC";
+            }  else if ($orden == "descendente") { //echo "des ok";
+                $query = $query." DESC";
+            } else {
+                echo "Orden incompatible!!!</br>-Ingrese 'ascendente' o 'descendente";
+                $query = NULL;
+            }       
+            if($query != NULL){
+                $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta($query);
+                $consulta->execute();			
+                $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Producto");
+                //var_dump($lista);
+                Producto::Listar($lista);
+            }            
+        }
+        public static function Filtro_E($cantidad) { //echo "llego Filtro_Ordenar";
+            $lista = array();
+            if($cantidad >= 0){ //echo "as ok";
+                $query = "SELECT * FROM `productos` ORDER BY `ultimaModificacion` LIMIT ".$cantidad;
+            
+            } else {
+                echo "Cantidad incompatible!!!</br>-Ingrese valores superiores a cero";
+                $query = NULL;
+            }       
+            if($query != NULL){
+                $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta($query);
+                $consulta->execute();			
+                $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Producto");
+                //var_dump($lista);
+                Producto::Listar($lista);
+            }            
+        }
+        #endregion
+
         #region archivos 
         // $nombre, $codigo, $tipo, $stock, $precio, $fechaDeCreacion, $ultimaModificacion + $id
         //CSV////////////////////////////////////////////

@@ -10,7 +10,7 @@
         public $fechaVenta;
         
         public $idProducto;
-
+        #region Propias
         public function __construct(){ }
 
         function Setter($codigo, $idUsuario, $cantidad, $fechaVenta, $idProducto){//$codigo, $idUsuario, $cantidad+$id
@@ -68,14 +68,111 @@
         }
 
         function MostrarVenta(){
-            echo "VENTA: ".$this->id."</br>";
-            echo "  Codigo: ".$this->codigo."</br>";
-            echo "  Id Usuario: ".$this->idUsuario."</br>";
-            echo "  Cantidad: ".$this->cantidad."</br>";
-            echo "  Fecha: ".$this->fechaVenta."</br>";
-            echo "  Id Producto: ".$this->idProducto."</br>";
-            echo "-----------------------</br>";
+            echo "<ul>";
+            echo "<li>"."VENTA: ".$this->id."</li>";
+            echo "  "."<li>"."Fecha: ".$this->fechaVenta."</li>";
+            echo "  "."<li>"."Id Usuario: ".$this->idUsuario."</li>";
+            echo "  "."<li>"."Id Producto: ".$this->idProducto."</li>";
+            echo "  "."<li>"."Codigo: ".$this->codigo."</li>";
+            echo "  "."<li>"."Cantidad: ".$this->cantidad."</li>";
+            echo "</ul>";
         }
+
+        public static function Listar($lista){
+            foreach ($lista as $obj) {
+                $obj->MostrarVenta();
+            }
+        }
+        #endregion
+
+        #region Filtros
+        public static function Filtro_C($q1, $q2) {
+            $lista = array();
+            $query = "SELECT * FROM `ventas` WHERE `cantidad`>".$q1." AND `cantidad` <".$q2;
+            
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Venta");
+            //var_dump($lista);
+            Venta::Listar($lista);
+        }
+        public static function Filtro_D($f1, $f2) {
+            $lista = array();
+            $query = "SELECT SUM(`cantidad`) FROM ventas WHERE ventas.fechaVenta BETWEEN '".$f1."' AND '".$f2."'";
+            
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();
+            $lista = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            echo "Cantidad Total vendida entre ".$f1." y ".$f2.": ".$lista[0]["SUM(`cantidad`)"]."</br>";
+        }
+        public static function Filtro_F() {
+            $lista = array();
+            $query = "SELECT usuarios.apellido, productos.nombre FROM ((ventas
+            INNER JOIN usuarios ON ventas.idUsuario = usuarios.id)
+            INNER JOIN productos ON ventas.idProducto = productos.id);";
+            
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($lista);
+            foreach ($lista as $obj) {
+                echo "Apellido: ".$obj["apellido"]." - Producto: ".$obj["nombre"]."</br>";
+            } //esto no funciono con usuarios.nombre y usuarios.apellido 
+        }
+        public static function Filtro_G(){
+            $lista = array();
+            $query = "SELECT ventas.id, SUM(`cantidad` * `precio`) as monto FROM 
+            (ventas INNER JOIN productos ON ventas.idProducto=productos.id) GROUP BY ventas.id;";
+            
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($lista);
+            echo  "<ul>";
+            foreach ($lista as $obj) {
+                echo "<li>"."Venta id: ".$obj["id"]." - Monto: ".round($obj["monto"],2)."$</br>";
+            }
+            echo "</ul>";
+        }
+        public static function Filtro_H($u, $p){
+            $lista = array();
+            $query = "SELECT SUM(`cantidad`) FROM ventas WHERE ventas.idUsuario=".$u." AND ventas.idProducto=".$p;
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($lista);
+            echo "Cantidad Total vendida por el usuario ".$u." del producto ".$p.": ".$lista[0]["SUM(`cantidad`)"]."</br>";
+        }
+        public static function Filtro_I($l){
+            $lista = array();
+            $query = "SELECT SUM(ventas.cantidad)as cantidad FROM ventas 
+            INNER JOIN usuarios ON ventas.idUsuario=usuarios.id WHERE usuarios.localidad='".$l."'"; //echo $query; 
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($lista);
+            echo "Cantidad Total vendida en ".$l.": ".$lista[0]["cantidad"]."</br>";
+        }
+        public static function Filtro_K($f1, $f2) {
+            $lista = array();
+            $query = "SELECT * FROM ventas WHERE ventas.fechaVenta BETWEEN '".$f1."' AND '".$f2."'";
+            
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Venta");
+            //var_dump($lista);
+            Venta::Listar($lista);
+        }
+
+        #endregion
+
         #region Archivos
         //$codigo, $idUsuario, $cantidad+$id
         //JSON///////////////////////////////////////////

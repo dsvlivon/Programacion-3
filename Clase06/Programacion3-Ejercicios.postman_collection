@@ -527,14 +527,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=registro",
+							"raw": "http://localhost/Clase06/Index.php?opcion=registro",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -578,14 +578,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=listado&archivo=usuarios",
+							"raw": "http://localhost/Clase06/Index.php?opcion=listado&archivo=usuarios",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -650,14 +650,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=login",
+							"raw": "http://localhost/Clase06/Index.php?opcion=login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -710,14 +710,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=alta",
+							"raw": "http://localhost/Clase06/Index.php?opcion=alta",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -760,14 +760,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=venta",
+							"raw": "http://localhost/Clase06/Index.php?opcion=venta",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -833,14 +833,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/Clase06/index.php?opcion=modificacionUsuario",
+							"raw": "http://localhost/Clase06/Index.php?opcion=modificacionUsuario",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"Clase06",
-								"index.php"
+								"Index.php"
 							],
 							"query": [
 								{
@@ -861,52 +861,88 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "apellido",
-									"value": "Bart",
-									"type": "text",
-									"disabled": true
+									"key": "codigo",
+									"value": "77900366",
+									"type": "text"
 								},
 								{
 									"key": "nombre",
-									"value": "Simpson",
+									"value": "Andes",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "Liquido",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "110.50",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
 									"type": "text",
 									"disabled": true
-								},
-								{
-									"key": "mail",
-									"value": "jon@utn.com",
-									"type": "text"
-								},
-								{
-									"key": "localidad",
-									"value": "Springfield",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "claveVieja",
-									"value": "11111",
-									"type": "text"
-								},
-								{
-									"key": "claveNueva",
-									"value": "12345",
-									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost/slim-php-heroku/app/Clase05/Ejercicio27/altaProducto.php",
+							"raw": "http://localhost/Clase06/Index.php?opcion=modificacionProducto",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
-								"slim-php-heroku",
-								"app",
-								"Clase05",
-								"Ejercicio27",
-								"altaProducto.php"
+								"Clase06",
+								"Index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "modificacionProducto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-p10_Filtrado-A/B",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orden",
+									"value": "ascendente",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/Clase06/index.php?opcion=filtrado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Clase06",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "opcion",
+									"value": "filtrado"
+								}
 							]
 						}
 					},

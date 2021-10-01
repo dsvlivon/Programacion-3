@@ -1,7 +1,6 @@
 <?php
     require_once "Archivo.php";
-    require_once "Persona.php";
-
+    
     class Usuario {//nombre,apellido, clave,mail,localidad
         public $nombre;
         public $apellido;
@@ -122,6 +121,40 @@
                 }
             }
             echo $msg;
+        }
+        #endregion
+        
+        #region Filtros
+        public static function Filtro_A($orden) { //echo "llego Filtro_Ordenar";
+            $lista = array();
+            $query = "SELECT * FROM `usuarios` ORDER BY `nombre`";
+            if($orden == "ascendente"){ //echo "as ok";
+                $query = $query." ASC";
+            }  else if ($orden == "descendente") { //echo "des ok";
+                $query = $query." DESC";
+            } else {
+                echo "Orden incompatible!!!</br>";
+                $query = NULL;
+            }       
+            if($query != NULL){
+                $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta($query);
+                $consulta->execute();			
+                $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");
+                //var_dump($lista);
+                Usuario::ListarUsuarios($lista);
+            }            
+        }
+        public static function Filtro_J($l) { //echo "llego Filtro_Ordenar";
+            $lista = array();
+            $query = "SELECT * FROM usuarios WHERE usuarios.nombre LIKE '%".$l."%' OR usuarios.apellido LIKE '%".$l."%'";
+
+            $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
+            $consulta = $objetoAccesoDato->RetornarConsulta($query);
+            $consulta->execute();			
+            $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");
+            // var_dump($lista);
+            Usuario::ListarUsuarios($lista);
         }
         #endregion
         

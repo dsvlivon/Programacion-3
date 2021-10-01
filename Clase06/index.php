@@ -1,8 +1,7 @@
 <?php
-    require_once "Usuario.php";
     $opcion = $_GET["opcion"];
     $metodo = $_SERVER['REQUEST_METHOD']; //devuelve el tipo d request q se envio
-    $error = "No se puede procesar!";
+    $error = "No se puede procesar! </br>'F'iltros van con 'F' mayusc xq no tenia ganas d validarlo";
 
     switch($metodo){
         case 'POST':
@@ -29,18 +28,23 @@
                     break;
             } break;
         case 'GET': //echo "llego GET!";
-            switch($opcion){
-                case 'listado':
-                    include_once "Listado.php";
-                break;
-                default: echo $error; 
-                break;
-            } break;
-
+            if($opcion == "Listado.php"){
+            } else if($opcion == 'Filtro A' || $opcion == 'Filtro J'){ 
+                include_once "FiltrosUsuario.php";
+            } else if($opcion == 'Filtro B' || $opcion == 'Filtro E'){ 
+                include_once "FiltrosProducto.php";
+            } else if($opcion == 'Filtro C' || $opcion == 'Filtro D' || $opcion == 'Filtro F' || $opcion == 'Filtro G'|| $opcion == 'Filtro H'|| $opcion == 'Filtro I' || $opcion == 'Filtro K'){
+                include_once "FiltrosVenta.php";
+            } else{
+                echo $error;
+            }
+            break;
         case 'PATCH':echo "llego PATCH!";
             break;
         case 'DELETE': echo "llego DEELTE!";
+            break;
         default: echo $error;
+            break;
     }
 
 
