@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "sabor": "palmito",
+        "precio": 535,
+        "tipo": "molde",
+        "cantidad": 4
+    },
+    {
+        "id": 3,
+        "sabor": "muzzarella",
+        "precio": 450,
+        "tipo": "molde",
+        "cantidad": 8
+    },
+    {
+        "id": 2,
+        "sabor": "4 quesos",
+        "precio": 155.75,
+        "tipo": "piedra",
+        "cantidad": 3
+    },
+    {
+        "id": 4669,
+        "sabor": "fugazzeta",
+        "precio": "535",
+        "tipo": "molde",
+        "cantidad": 6
+        }
+]

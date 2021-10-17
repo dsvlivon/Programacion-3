@@ -3,7 +3,7 @@
     $opcion = $_GET["tarea"];
     $nombre = $_POST["nombre"];
     $clave = $_POST["clave"];
-
+    // $_SERVER['REQUEST_METHOD']; devuelve el tipo d request q se envio
     var_dump($opcion);
 
     $lista = array();
