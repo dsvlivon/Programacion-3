@@ -1,5 +1,5 @@
 <?php
-    require_once "Pizza.php";
+    require_once "Helado.php";
 
     class Venta{
         //fecha, número de pedido y id autoincremental
@@ -25,23 +25,23 @@
             if($tipo != NULL) {$this->tipo = $tipo;}
         }
         public function Vender($foto){
-            $lista = Pizza::ReadJson("Pizza.json");
-            
-            $p = new Pizza(); //$id, $sabor, $tipo, $cantidad, $precio
-            $p->Setter(NULL, $this->sabor, $this->tipo, $this->cantidad, NULL);
+            $lista = Helado::ReadJson("Helado.json");
+            // Helado::Listar($lista);      
+            $x = new Helado(); //$id, $sabor, $tipo, $cantidad, $precio
+            $x->Setter(NULL, $this->sabor, $this->tipo, $this->cantidad, NULL);
 
             foreach ($lista as $obj) {
-                if($p->Equals($obj) && $this->cantidad <= $obj->cantidad){ //echo "prod Ok!";
+                if($x->Equals($obj) && $this->cantidad <= $obj->cantidad){ //echo "prod Ok!";
                     $obj->cantidad -= $this->cantidad;
-                    $this->id = rand(1, 10000);
+                    // $this->id = rand(1, 10000);
                     $this->numeroPedido = Venta::getNumeroPedido();
                     $this->GuardarPic($foto);
                     $this->Insert();
-                    Archivo::GuardarJSON($lista,"Pizza.json");
+                    Archivo::GuardarJSON($lista,"Helado.json");
                     return "Venta realizada!</BR>";       
                 }
-            }// “no se pudo hacer“si no se pudo hacer
-            return "No se pudo hacer!</BR>";
+            }
+            return "No se pudo hacer!</BR>".$x->sabor." - ".$x->tipo."No disponible";
         }
         public function GuardarPic($foto){
             $dir_subida = 'ImagenesDeLaVenta/';
@@ -64,7 +64,7 @@
             $ventas = Venta::SelectAll("ventash");
             return count($ventas)+1;
         }
-        function MostrarVenta(){
+        public function MostrarVenta(){
             echo "<ul>";
             echo "<li>"."VENTA: ".$this->id."</li>";
             echo "  "."<li>"."Fecha: ".$this->fechaVenta."</li>";
@@ -115,7 +115,7 @@
                         Venta::Delete($n);
                         break;
                     } else {
-                        echo "</br>El registro no existe!";
+                        $msg = "</br>El registro no existe!";
                     }
                 }
                 return $msg;
@@ -136,13 +136,13 @@
         }
         public static function Filtro_b($f1, $f2) {
             $lista = array();
-            $query = "SELECT * FROM ventash WHERE ventash.fechaVenta BETWEEN '".$f1."' AND '".$f2."ORDER BY sabor'";
+            $query = "SELECT ventash.mail FROM ventash WHERE ventash.fechaVenta BETWEEN '".$f1."' AND '".$f2."'";
             
             $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
             $consulta = $objetoAccesoDato->RetornarConsulta($query);
             $consulta->execute();			
             $lista = $consulta->fetchAll(PDO::FETCH_CLASS, "Venta");
-            //var_dump($lista);
+            // var_dump($lista);
             return $lista;
         }
         public static function Filtro_c($m){
@@ -156,9 +156,9 @@
             //var_dump($lista);
             return $lista;
         }
-        public static function Filtro_d($s){
+        public static function Filtro_d($t){
             $lista = array();
-            $query = "SELECT * FROM ventash WHERE ventash.sabor='".$s."'";
+            $query = "SELECT * FROM ventash WHERE ventash.tipo='".$t."'";
             
             $objetoAccesoDato = archivo::dameUnObjetoAcceso(); 
             $consulta = $objetoAccesoDato->RetornarConsulta($query);
@@ -174,13 +174,13 @@
         //$codigo, $idUsuario, $cantidad+$id
         //SQL////////////////////////////////////////////
         public function Insert() {
-            $query = "INSERT into ventash (id, mail, sabor, tipo, cantidad, fechaVenta, numeroPedido)
-            values(:id,:mail,:sabor,:tipo,:cantidad,:fechaVenta,:numeroPedido)";
+            $query = "INSERT into ventash (mail, sabor, tipo, cantidad, fechaVenta, numeroPedido)
+            values(:mail,:sabor,:tipo,:cantidad,:fechaVenta,:numeroPedido)";
 
             $objetoAccesoDato = Archivo::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta($query);
 
-            $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);
+            // $consulta->bindValue(':id',$this->id, PDO::PARAM_INT);
             $consulta->bindValue(':mail',$this->mail, PDO::PARAM_STR);
             $consulta->bindValue(':sabor',$this->sabor, PDO::PARAM_STR);
             $consulta->bindValue(':tipo',$this->tipo, PDO::PARAM_STR);

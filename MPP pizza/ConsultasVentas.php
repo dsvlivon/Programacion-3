@@ -1,15 +1,4 @@
 <?php
-// Funciones de filtrado:
-// se deben realizar la funciones que reciban datos por parámetros y puedan
-// ejecutar la consulta para responder a los siguientes requerimientos
-
-// C. Obtener todas las compras filtradas entre dos cantidades.
-// D. Obtener la cantidad total de todos los productos vendidos entre dos fechas.
-// F. Mostrar los nombres del usuario y los nombres de los productos de cada venta.
-// G. Indicar el monto (cantidad * precio) por cada una de las ventas.
-// H. Obtener la cantidad total de un producto (ejemplo:1003) vendido por un usuario (ejemplo: 104).
-// I. Obtener todos los números de los productos vendidos por algún usuario filtrado por localidad (ejemplo: ‘Avellaneda’).
-// K. Mostrar las ventas entre dos fechas del año.
 
 // VIZGARRA.LIVON.DANIEL
 

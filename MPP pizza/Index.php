@@ -1,7 +1,7 @@
 <?php
     $opcion = $_GET["opcion"];
     $metodo = $_SERVER['REQUEST_METHOD']; //devuelve el tipo d request q se envio
-    $error = "No se puede procesar! </br>'F'iltros van con 'F' mayusc xq no tenia ganas d validarlo";
+    $error = "No se puede procesar! </br>Switch(lv.1):default";
 
     switch($metodo){
         case 'POST':
